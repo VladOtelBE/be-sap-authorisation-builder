@@ -1,0 +1,338 @@
+{
+  "profileKey": "MDM_HQ",
+  "businessProfile": "MDM Central - HQ Level",
+  "domain": "Product Excellence (PE)",
+  "derivationBy": "CROSS MAISON (ALL MARKETS) - Creation / Modify / Display",
+  "matrixComment": "For Materials (Included Classification, Attributs.), Business Partners, prices, BOM and PIR",
+  "source": {
+    "matrixFile": "SAP6_MatriceAutorisationsW&J_v1_20260428.xlsx",
+    "matrixColumnHeader": "MDM Central - HQ Level",
+    "matrixProfileRow": 12,
+    "system": "S02/120"
+  },
+  "status": "PROPOSAL",
+
+  "space": {
+    "technicalName": "Z_VOT_BEMIND_SP_MDM_HQ",
+    "title": "Master Data Management",
+    "description": "MDM Central - HQ Level (cross maison): business partners, articles, purchasing info records, BOMs and sales prices"
+  },
+
+  "pages": [
+    {
+      "technicalName": "Z_VOT_BEMIND_PG_MDM_HQ_BP",
+      "title": "Business Partners",
+      "order": 1,
+      "bpmlL2": "1.2. Master Data - Business Partner Management",
+      "sections": [
+        { "title": "Create & Maintain", "tiles": ["BP"] }
+      ]
+    },
+    {
+      "technicalName": "Z_VOT_BEMIND_PG_MDM_HQ_ART",
+      "title": "Articles & Purchasing Info Records",
+      "order": 2,
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "sections": [
+        { "title": "Articles", "tiles": ["MM41", "MM42", "MM43"] },
+        { "title": "Purchasing Info Records", "tiles": ["ME11", "ME12", "ME13"] },
+        { "title": "Tools", "tiles": ["F3251"] }
+      ]
+    },
+    {
+      "technicalName": "Z_VOT_BEMIND_PG_MDM_HQ_BOM",
+      "title": "Bills of Material",
+      "order": 3,
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "sections": [
+        { "title": "Create & Maintain", "tiles": ["CS01", "CS02", "F5238"] },
+        { "title": "Display & Analyse", "tiles": ["CS03", "CS12", "F5938"] }
+      ]
+    },
+    {
+      "technicalName": "Z_VOT_BEMIND_PG_MDM_HQ_PRICE",
+      "title": "Sales Prices",
+      "order": 4,
+      "bpmlL2": "1.5. Master Data - Prices",
+      "sections": [
+        { "title": "Create & Maintain", "tiles": ["F4111", "VK11", "VK12"] },
+        { "title": "Display & Analyse", "tiles": ["VK13"] }
+      ]
+    }
+  ],
+
+  "tiles": [
+    {
+      "ref": "BP", "entryId": "BP", "matrixRow": 4,
+      "matrixComment": "Maintain Business Partner (GUI) - Car liste des champs plus exhautives comparé à la version FIORISE",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Maintain Business Partner",
+      "semanticObject": "BusinessPartner", "semanticAction": "maintain", "appType": "TR",
+      "technicalCatalog": "SAP_TC_CA_BP_BE_APPS", "scope": "S4CMD",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=BP PARENTID=X-SAP-UI2-ADCAT:SAP_TC_CA_BP_BE_APPS:S4CMD; title TSTCT(BP,E)",
+      "alternatives": ["SAP_NW_BE_APPS:NW BusinessPartner-maintain", "SAP_TC_CMM_BE_APPS:S4CMM BusinessPartner-manage", "SAP_TC_OIL_ACM_BE_APPS:S4OIL BusinessPartner-maintain", "SAP_TC_RFM_STO_BE_APPS:S4RFM BusinessPartner-create", "SAP_TC_TM_BE_APPS:S4TM BusinessPartner-define"],
+      "mappingRationale": "Cross-industry master data (S4CMD) catalog, action 'maintain' = full BP maintenance as requested by the matrix (GUI kept on purpose for the more exhaustive field list)."
+    },
+    {
+      "ref": "MM41", "entryId": "MM41", "matrixRow": 5,
+      "matrixComment": "Create Article (GUI Retail) - MM41 = Retail article - NB : Pertinent pour la creation des article de service TAG Heuer",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Create Article",
+      "semanticObject": "Article", "semanticAction": "create", "appType": "TR",
+      "technicalCatalog": "SAP_TC_RFM_MD_ITM_BE_APPS", "scope": "S4RFM",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=MM41 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_RFM_MD_ITM_BE_APPS:S4RFM",
+      "alternatives": ["SAP_TC_CA_PR_BE_APPS:S4CMD Article-create"],
+      "mappingRationale": "Matrix explicitly states 'Retail article' -> Retail Fashion master data item catalog (S4RFM). TO CONFIRM (see gaps). Title: TSTCT text is 'Create Material &' (retail dynamic text) - end-user title 'Create Article' taken from the matrix comment."
+    },
+    {
+      "ref": "MM42", "entryId": "MM42", "matrixRow": 6,
+      "matrixComment": "Change Article (GUI Retail) - MM42 = Retail article",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Change Article",
+      "semanticObject": "Article", "semanticAction": "maintain", "appType": "TR",
+      "technicalCatalog": "SAP_TC_RFM_MD_ITM_BE_APPS", "scope": "S4RFM",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=MM42 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_RFM_MD_ITM_BE_APPS:S4RFM",
+      "alternatives": ["SAP_TC_CA_PR_BE_APPS:S4CMD Article-change"],
+      "mappingRationale": "Same catalog as MM41/MM43 (consistency). Title from matrix comment."
+    },
+    {
+      "ref": "MM43", "entryId": "MM43", "matrixRow": 7,
+      "matrixComment": "Display Article (GUI Retail) - MM43 = Retail article",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Display Article",
+      "semanticObject": "Article", "semanticAction": "display", "appType": "TR",
+      "technicalCatalog": "SAP_TC_RFM_MD_ITM_BE_APPS", "scope": "S4RFM",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=MM43 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_RFM_MD_ITM_BE_APPS:S4RFM",
+      "alternatives": ["SAP_TC_CA_PR_BE_APPS:S4CMD Article-display"],
+      "mappingRationale": "Same catalog as MM41/MM42. Title from matrix comment."
+    },
+    {
+      "ref": "F3251", "entryId": "F3251", "matrixRow": 8,
+      "matrixComment": "Export Master Data",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "FIORI", "title": "MDG: Export Master Data",
+      "semanticObject": "MasterData", "semanticAction": "export", "appType": "SAPUI5",
+      "technicalCatalog": "SAP_TC_CMD_CMP_MONPROCS_COMMON", "scope": "",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "TSTC/TSTCT F3251 'MDG: Export Master Data' in package UI_MD_CMP_EXPORT_FILE (BSP MD_CMPEXPFILES1); /UI2/PB_C_TM UI5_COMPONENT_ID=mdm.cmd.cmpexportfiles1 PARENTID=X-SAP-UI2-CATALOGPAGE:SAP_TC_CMD_CMP_MONPROCS_COMMON; also listed in SAP_BR_PRODMASTER_SPECIALIST menu (AGR_HIERT 'MDG: Export Master Data')",
+      "alternatives": ["SAP_TC_CMD_QLTY_EVAL_COMMON MasterData-export (same component)"],
+      "mappingRationale": "Component mdm.cmd.cmpexportfiles1 matches BSP MD_CMPEXPFILES1 of the F3251 package. Catalog CMP_MONPROCS chosen (generic CMD processes; QLTY_EVAL is data-quality specific)."
+    },
+    {
+      "ref": "ME11", "entryId": "ME11", "matrixRow": 9,
+      "matrixComment": "Create Purchase Info Record",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Create Purchasing Info Record",
+      "semanticObject": "PurchasingInfoRecord", "semanticAction": "create", "appType": "TR",
+      "technicalCatalog": "SAP_TC_PRC_BE_APPS", "scope": "S4PRC",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=ME11 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_PRC_BE_APPS:S4PRC; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    },
+    {
+      "ref": "ME12", "entryId": "ME12", "matrixRow": 10,
+      "matrixComment": "Change Purchase Info Record",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Change Purchasing Info Record",
+      "semanticObject": "PurchasingInfoRecord", "semanticAction": "change", "appType": "TR",
+      "technicalCatalog": "SAP_TC_PRC_BE_APPS", "scope": "S4PRC",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=ME12 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_PRC_BE_APPS:S4PRC; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    },
+    {
+      "ref": "ME13", "entryId": "ME13", "matrixRow": 11,
+      "matrixComment": "Display Purchase Info Record",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Display Purchasing Info Record",
+      "semanticObject": "PurchasingInfoRecord", "semanticAction": "display", "appType": "TR",
+      "technicalCatalog": "SAP_TC_PRC_BE_APPS", "scope": "S4PRC",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=ME13 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_PRC_BE_APPS:S4PRC; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    },
+    {
+      "ref": "F5238", "entryId": "F5238", "matrixRow": 12,
+      "matrixComment": "Manage Multilevel Bill of Material",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "FIORI", "title": "Manage Multilevel Bill of Material",
+      "semanticObject": "MaterialBOM", "semanticAction": "multilevel", "appType": "SAPUI5",
+      "technicalCatalog": "SAP_TC_PLM_COMMON", "scope": "",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "TSTC F5238 package PISE_MI_PLM_BOMMULTIMAINT -> UIAD 42010AEE2A311EDB8DA5F1073F43AC1E -> /UI2/PB_C_TM ID ...:SAP_TC_PLM_COMMON:42010AEE2A311EDB8DA5F1073F43AC1E_TM (component pise.mi.plm.multilevelbom)",
+      "alternatives": [], "mappingRationale": "Exact link app descriptor -> target mapping."
+    },
+    {
+      "ref": "CS12", "entryId": "CS12", "matrixRow": 13,
+      "matrixComment": "Display Multilevel BOM Explosion, Multilevel BOM",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Display Multilevel BOM",
+      "semanticObject": "BillOfMaterial", "semanticAction": "displayMultilevelExplosion", "appType": "TR",
+      "technicalCatalog": "SAP_TC_SCM_PP_BE_APPS", "scope": "S4PP",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=CS12 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_SCM_PP_BE_APPS:S4PP",
+      "alternatives": ["SAP_TC_PLM_BOM_BE_APPS:S4PLM MaterialBOM-displayMulitiLevelBOM"],
+      "mappingRationale": "S4PP chosen for consistency with CS01/CS02 (only available in S4PP)."
+    },
+    {
+      "ref": "F5938", "entryId": "F5938", "matrixRow": 14,
+      "matrixComment": "Compare Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "FIORI", "title": "Compare Bills of Material",
+      "semanticObject": "MaterialBOM", "semanticAction": "comparison", "appType": "SAPUI5",
+      "technicalCatalog": "SAP_TC_PLM_COMMON", "scope": "",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "TSTC F5938 package PISE_MI_PLM_BOMCOMPARISON -> UIAD 42010AEE2A311EDBB8F81D5B1219F143 -> /UI2/PB_C_TM ID ...:SAP_TC_PLM_COMMON:42010AEE2A311EDBB8F81D5B1219F143_TM (component pise.mi.plm.bomcomparison)",
+      "alternatives": [], "mappingRationale": "Exact link app descriptor -> target mapping."
+    },
+    {
+      "ref": "CS01", "entryId": "CS01", "matrixRow": 15,
+      "matrixComment": "Create Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Create Material BOM",
+      "semanticObject": "BillOfMaterial", "semanticAction": "create", "appType": "TR",
+      "technicalCatalog": "SAP_TC_SCM_PP_BE_APPS", "scope": "S4PP",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=CS01 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_SCM_PP_BE_APPS:S4PP; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    },
+    {
+      "ref": "CS02", "entryId": "CS02", "matrixRow": 16,
+      "matrixComment": "Change Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Change Material BOM",
+      "semanticObject": "BillOfMaterial", "semanticAction": "change", "appType": "TR",
+      "technicalCatalog": "SAP_TC_SCM_PP_BE_APPS", "scope": "S4PP",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=CS02 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_SCM_PP_BE_APPS:S4PP; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    },
+    {
+      "ref": "CS03", "entryId": "CS03", "matrixRow": 17,
+      "matrixComment": "Display Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Display Material BOM",
+      "semanticObject": "BillOfMaterial", "semanticAction": "display", "appType": "TR",
+      "technicalCatalog": "SAP_TC_SCM_PP_BE_APPS", "scope": "S4PP",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=CS03 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_SCM_PP_BE_APPS:S4PP; title TSTCT",
+      "alternatives": ["SAP_TC_PLM_BOM_BE_APPS:S4PLM MaterialBOM-display"],
+      "mappingRationale": "S4PP chosen for consistency with CS01/CS02."
+    },
+    {
+      "ref": "F4111", "entryId": "F4111", "matrixRow": 18,
+      "matrixComment": "Manage Prices - Sales",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "FIORI", "title": "Manage Prices - Sales",
+      "semanticObject": "PricesInSales", "semanticAction": "manage", "appType": "SAPUI5",
+      "technicalCatalog": "SAP_TC_CEC_SD_COMMON", "scope": "",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM INFORMATION='F4111 Manage Prices – Sales' PARENTID=X-SAP-UI2-CATALOGPAGE:SAP_TC_CEC_SD_COMMON; SAP_BR_PRICING_SPECIALIST menu 'Manage Prices - Sales'",
+      "alternatives": ["PricesInSales-displayInApprovalSalesPrices (same app, approval view)"],
+      "mappingRationale": "App ID explicitly in target mapping information."
+    },
+    {
+      "ref": "VK11", "entryId": "VK11", "matrixRow": 19,
+      "matrixComment": "Create condition records",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Create Condition",
+      "semanticObject": "PriceCondition", "semanticAction": "createCondition", "appType": "TR",
+      "technicalCatalog": "SAP_TC_CEC_SD_BE_APPS", "scope": "S4SD",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=VK11 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_CEC_SD_BE_APPS:S4SD; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    },
+    {
+      "ref": "VK12", "entryId": "VK12", "matrixRow": 20,
+      "matrixComment": "Change condition records",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Change Condition",
+      "semanticObject": "PriceCondition", "semanticAction": "setSalesPricesMaterials", "appType": "TR",
+      "technicalCatalog": "SAP_TC_CEC_SD_BE_APPS", "scope": "S4SD",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=VK12 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_CEC_SD_BE_APPS:S4SD (only actions found: setSalesPricesMaterials, setSalesPricesServices, setSalesTaxRates)",
+      "alternatives": ["PriceCondition-setSalesPricesServices", "PriceCondition-setSalesTaxRates", "Custom target mapping PriceCondition-changeCondition -> VK12 (no parameters)"],
+      "mappingRationale": "No generic 'change condition' intent delivered for VK12. Provisional choice; see gap G2."
+    },
+    {
+      "ref": "VK13", "entryId": "VK13", "matrixRow": 21,
+      "matrixComment": "Display condition records",
+      "accessType": "FULL (Create/Update/Delete)", "actvt": ["01", "02", "03", "06"],
+      "tileType": "WEBGUI", "title": "Display Condition",
+      "semanticObject": "PriceCondition", "semanticAction": "displayCondition", "appType": "TR",
+      "technicalCatalog": "SAP_TC_CEC_SD_BE_APPS", "scope": "S4SD",
+      "businessCatalog": "", "needsCustomCatalog": true,
+      "source": "/UI2/PB_C_TM TCODE=VK13 PARENTID=X-SAP-UI2-ADCAT:SAP_TC_CEC_SD_BE_APPS:S4SD; title TSTCT",
+      "alternatives": [], "mappingRationale": "Single mapping found."
+    }
+  ],
+
+  "roles": [
+    {
+      "name": "Z_VOT_BEMIND_MDM_HQ_ALL",
+      "type": "MASTER",
+      "description": "BeMind - MDM Central HQ Level - all org units",
+      "perimeter": "All (cross maison, all markets)",
+      "orgLevels": { "BUKRS": ["*"], "WERKS": ["*"], "EKORG": ["*"], "VKORG": ["*"], "VTWEG": ["*"], "SPART": ["*"] },
+      "justification": "Matrix 'Derivation by' = CROSS MAISON (ALL MARKETS): full org access."
+    },
+    {
+      "name": "Z_VOT_BEMIND_MDM_HQ_COM1",
+      "type": "DERIVED",
+      "parent": "Z_VOT_BEMIND_MDM_HQ_ALL",
+      "description": "BeMind - MDM Central HQ Level - company code COM1",
+      "perimeter": "Company code COM1 (Company #1, FR) - demo derivation",
+      "orgLevels": {
+        "BUKRS": ["COM1"],
+        "WERKS": ["9000", "9998", "9999", "G001", "G002", "G003", "GL01", "P001", "P004", "PCEN", "PLEH", "POS1", "POS2", "POS3", "POS4", "POS5", "POS6", "POS7", "POS8", "POS9", "PPRD", "PQYR"],
+        "EKORG": ["9000", "9001", "PO01"],
+        "VKORG": ["LA01", "SO01"],
+        "VTWEG": ["*"],
+        "SPART": ["*"]
+      },
+      "justification": "Client 120: COM1 has the most FI documents (3,411 BKPF), most plants with materials (POS1-9, PCEN ~2,000 materials each), most BOMs (PPRD 119 + PCEN 40 in MAST) and most info records (EKORG PO01: 353 in EINE). Plants = T001W/T001K for COM1; EKORG = T024E with BUKRS COM1; VKORG = TVKO with BUKRS COM1."
+    }
+  ],
+
+  "gaps": [
+    {
+      "entryId": "ALL", "type": "TO_CONFIRM",
+      "detail": "Business catalogs (tile level) could not be read: tile cache /UI2/PB_C_TILE is empty in client 120. Target mappings (technical catalogs) are all found.",
+      "question": "G1 - OK to build one custom business catalog Z_VOT_BEMIND_BC_MDM_HQ (in package Z_BM_ROLESAUTHORS) with 18 tiles referencing the standard target mappings above + assign the technical catalogs to the role? (Alternative: search standard SAP_*_BC_* catalogs in the FLP Content Manager via browser before building.)"
+    },
+    {
+      "entryId": "VK12", "type": "AMBIGUOUS",
+      "detail": "No generic 'change condition' target mapping for VK12 in the system. Delivered intents: PriceCondition-setSalesPricesMaterials / setSalesPricesServices / setSalesTaxRates (pre-filled condition types).",
+      "question": "G2 - Use PriceCondition-setSalesPricesMaterials (provisional), or create a custom target mapping PriceCondition-changeCondition -> VK12 without parameters in the custom catalog (my recommendation for a generic 'Change Condition' tile)?"
+    },
+    {
+      "entryId": "MM41/MM42/MM43", "type": "TO_CONFIRM",
+      "detail": "Two standard catalogs exist: SAP_TC_RFM_MD_ITM_BE_APPS (S4RFM, retail fashion; actions create/maintain/display) and SAP_TC_CA_PR_BE_APPS (S4CMD, cross master data; actions create/change/display).",
+      "question": "G3 - Keep S4RFM (matrix says 'Retail article'), or use S4CMD?"
+    },
+    {
+      "entryId": "F3251", "type": "TO_CONFIRM",
+      "detail": "F3251 'MDG: Export Master Data' belongs to Central Master Data / MDG consolidation & mass processing (CMD). It needs CMD/MDG configuration to be usable; may not work in S02 demo.",
+      "question": "G4 - Keep F3251 in the role (matrix requirement) even if it fails in S02 tests? (Proposed: yes, failures documented in the test report.)"
+    },
+    {
+      "entryId": "COM1 role", "type": "TO_CONFIRM",
+      "detail": "Derived role includes all 22 COM1 plants incl. test plants 9000/9998/9999, and only purchasing orgs assigned to COM1 (9000, 9001, PO01). Cross-company purchasing orgs (e.g. HO01 with 285 info records, blank company code) are NOT included.",
+      "question": "G5 - Confirm org values for Z_VOT_BEMIND_MDM_HQ_COM1 (keep all 22 plants? add any cross-company purchasing org?)"
+    },
+    {
+      "entryId": "MM43, ME13, CS03, CS12, VK13", "type": "TO_CONFIRM",
+      "detail": "Matrix marks display transactions as FULL. They remain display by nature; FULL ACTVT (01/02/03/06) is applied to the authorisation objects of the role as a whole.",
+      "question": "G6 - No action needed unless you want display-only authorisation objects restricted separately."
+    },
+    {
+      "entryId": "Test user", "type": "TO_CONFIRM",
+      "detail": "Test user Z_VOT_BM_T1 will need FLP runtime authorisations in addition to the business role (e.g. a technical FLP role).",
+      "question": "G7 - Is there a project technical FLP role to assign (e.g. Z_VOT_TECHROLE?), or should I use the SAP standard SAP_UI2_USER_700 if present?"
+    }
+  ]
+}

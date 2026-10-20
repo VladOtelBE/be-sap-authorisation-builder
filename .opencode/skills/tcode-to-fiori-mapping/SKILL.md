@@ -23,7 +23,16 @@ Columns usable in `runQuery` (avoid STRING/RAWSTRING columns: `URL`, `PARAMETERS
   ```
   Keep max ~7 tcodes per query (large results + session stability).
 
-### 2. Fiori app ID (F-number)
+### 2. Fiori app ID (F-number) – proven resolution chain (works when INFORMATION is empty)
+1. `SELECT TCODE FROM TSTC WHERE TCODE IN ('F5238',...)` + `TSTCT` (SPRSL='E') for the title.
+2. `SELECT OBJ_NAME, DEVCLASS FROM TADIR WHERE PGMID='R3TR' AND OBJECT='TRAN' AND OBJ_NAME IN (...)` → package.
+3. `SELECT OBJ_NAME, OBJECT FROM TADIR WHERE DEVCLASS IN (...) AND OBJECT IN ('WAPA','UIAD')` → app
+   descriptor GUID(s) + BSP app.
+4. `SELECT ID, PARENTID, SEM_OBJ, SEM_ACT, UI5_COMPONENT_ID FROM /UI2/PB_C_TM WHERE ID LIKE '%<UIAD GUID>%'`
+   → exact target mapping (ID = `...CATALOGPAGE:<TC>:<GUID>_TM`). If no hit, match the BSP name with
+   `UI5_COMPONENT_ID` (e.g. BSP `MD_CMPEXPFILES1` ↔ `mdm.cmd.cmpexportfiles1`).
+
+Additional notes:
 - `SELECT TCODE FROM TSTC WHERE TCODE = 'F4111'` – many apps have an F-number transaction (package
   name hints the UI component, e.g. `UI_SD_SALESPRICES_MANAGES1`).
 - `/UI2/PB_C_TM` with `INFORMATION` or `UI5_COMPONENT_ID` – the app ID is often in `INFORMATION`.
@@ -35,6 +44,13 @@ Columns usable in `runQuery` (avoid STRING/RAWSTRING columns: `URL`, `PARAMETERS
   `UIST` (space templates). App descriptors `UIAD` have hashed names → not useful for search by app ID.
 
 ### 3. Business catalog / tile (visual) level
+Note (S02/120): the tile cache `/UI2/PB_C_TILE` may be EMPTY (filled only on FLP usage) → business
+catalogs cannot be found by SQL. Then: either check the FLP Content Manager (`/UI2/FLPCM_CUST`) in the
+browser, or propose a custom business catalog (gap to confirm by the user).
+Tile titles: use `TSTCT` (tcodes) / `TSTCT` of the F-transaction (apps); retail tcodes have dynamic
+texts ("Create Material &") → use the matrix comment wording and say so in `mappingRationale`.
+Also: some tcodes have only parameterised intents (e.g. VK12 → `setSalesPricesMaterials`) → raise a gap.
+
 Business catalogs (`SAP_*_BC_*`) contain tiles referencing the technical catalog target mappings.
 For the design we need at least: technical catalog + semantic object/action + title.
 If a standard business catalog containing the tile is found, record it as `businessCatalog`

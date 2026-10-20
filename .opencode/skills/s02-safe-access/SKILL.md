@@ -20,6 +20,10 @@ description: Rules and known pitfalls for accessing the SAP target system (S02) 
      before retrying; do not loop.
    - Always set `rowNumber`.
 4. `hasTransportConfig` / `searchObject` return 400 when the session is broken – same recovery.
+5. The session tends to expire after ~4-6 queries: call `login` proactively every ~4 queries.
+6. STRING / RAWSTRING columns (e.g. `AGR_HIER-URL`, `AGR_BUFFI-URL`, `/UI2/PB_C_TM-URL`,
+   `/UI2/PB_C_PAGE-CATALOG_ID`) break `runQuery` – check the field types with `ddicElement` first.
+7. Large `IN (...)` lists on wide tables can fail – keep ≤ 8 values per query.
 
 ## Approval rules
 - Read-only tools (`runQuery`, `tableContents`, `searchObject`, `getObjectSource`, `ddicElement`,
