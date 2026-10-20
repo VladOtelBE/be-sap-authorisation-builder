@@ -1,0 +1,17 @@
+{
+  "name": "be-sap-authorisation-builder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agents + skills to analyse an S/4HANA authorisation matrix and build/test Fiori end-user roles",
+  "type": "module",
+  "scripts": {
+    "list-profiles": "node scripts/parse-matrix.mjs --list",
+    "parse": "node scripts/parse-matrix.mjs",
+    "layout": "node scripts/build-layout-xlsx.mjs",
+    "report": "node scripts/build-test-report.mjs"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  }
+}

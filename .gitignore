@@ -1,0 +1,12 @@
+node_modules/
+# Client matrices may contain confidential client data: do not commit them by default.
+input/*
+!input/.gitkeep
+# Excel lock files
+~$*
+# Local secrets / env
+.env
+*.local.json
+# Browser artefacts
+.playwright-mcp/
+*.log

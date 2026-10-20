@@ -1,0 +1,209 @@
+{
+  "source": {
+    "file": "SAP6_MatriceAutorisationsW&J_v1_20260428.xlsx",
+    "parsedAt": "2026-10-20T14:23:16.547Z",
+    "totalTileRows": 382
+  },
+  "profile": {
+    "sheetRow": 12,
+    "pilot": "Pilot 1",
+    "domain": "Product Excellence (PE)",
+    "businessProfile": "MDM Central - HQ Level",
+    "derivationBy": "CROSS MAISON (ALL MARKETS) - Creation / Modify / Display",
+    "comments": "For Materials (Included Classification, Attributs…), Business Partners, prices, BOM and PIR"
+  },
+  "summary": {
+    "entries": 18,
+    "byAccessType": {
+      "FULL (Create/Update/Delete)": 18
+    },
+    "byArea": {
+      "1.2. Master Data - Business Partner Management": 1,
+      "1.3. Master Data - Material Master Data Management": 7,
+      "1.4. Master Data - Bill of Material": 6,
+      "1.5. Master Data - Prices": 4
+    }
+  },
+  "entries": [
+    {
+      "matrixRow": 4,
+      "num": "1",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.2. Master Data - Business Partner Management",
+      "entryId": "BP",
+      "entryType": "TCODE",
+      "matrixComment": "Maintain Business Partner (GUI) - Car liste des champs plus exhautives comparé à la version FIORISE",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 5,
+      "num": "2",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "MM41",
+      "entryType": "TCODE",
+      "matrixComment": "Create Article (GUI Retail) - MM41 = Retail article - NB : Pertinent pour la creation des article de service TAG Heuer",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 6,
+      "num": "3",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "MM42",
+      "entryType": "TCODE",
+      "matrixComment": "Change Article (GUI Retail) - MM42 = Retail article",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 7,
+      "num": "4",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "MM43",
+      "entryType": "TCODE",
+      "matrixComment": "Display Article (GUI Retail) - MM43 = Retail article",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 8,
+      "num": "5",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "F3251",
+      "entryType": "FIORI_APP_ID",
+      "matrixComment": "Export Master Data",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 9,
+      "num": "6",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "ME11",
+      "entryType": "TCODE",
+      "matrixComment": "Create Purchase Info Record",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 10,
+      "num": "7",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "ME12",
+      "entryType": "TCODE",
+      "matrixComment": "Change Purchase Info Record",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 11,
+      "num": "8",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.3. Master Data - Material Master Data Management",
+      "entryId": "ME13",
+      "entryType": "TCODE",
+      "matrixComment": "Display Purchase Info Record",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 12,
+      "num": "9",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "entryId": "F5238",
+      "entryType": "FIORI_APP_ID",
+      "matrixComment": "Manage Multilevel Bill of Material",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 13,
+      "num": "10",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "entryId": "CS12",
+      "entryType": "TCODE",
+      "matrixComment": "Display Multilevel BOM Explosion, Multilevel BOM",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 14,
+      "num": "11",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "entryId": "F5938",
+      "entryType": "FIORI_APP_ID",
+      "matrixComment": "Compare Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 15,
+      "num": "12",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "entryId": "CS01",
+      "entryType": "TCODE",
+      "matrixComment": "Create Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 16,
+      "num": "13",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "entryId": "CS02",
+      "entryType": "TCODE",
+      "matrixComment": "Change Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 17,
+      "num": "14",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.4. Master Data - Bill of Material",
+      "entryId": "CS03",
+      "entryType": "TCODE",
+      "matrixComment": "Display Bill of Materials",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 18,
+      "num": "15",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.5. Master Data - Prices",
+      "entryId": "F4111",
+      "entryType": "FIORI_APP_ID",
+      "matrixComment": "Manage Prices - Sales",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 19,
+      "num": "16",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.5. Master Data - Prices",
+      "entryId": "VK11",
+      "entryType": "TCODE",
+      "matrixComment": "Create condition records",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 20,
+      "num": "17",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.5. Master Data - Prices",
+      "entryId": "VK12",
+      "entryType": "TCODE",
+      "matrixComment": "Change condition records",
+      "accessType": "FULL (Create/Update/Delete)"
+    },
+    {
+      "matrixRow": 21,
+      "num": "18",
+      "bpmlL1": "Product Excellence (PE)",
+      "bpmlL2": "1.5. Master Data - Prices",
+      "entryId": "VK13",
+      "entryType": "TCODE",
+      "matrixComment": "Display condition records",
+      "accessType": "FULL (Create/Update/Delete)"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "$comment": "System-specific settings. Agents read this file at the start of every run. Never put passwords here.",
+  "system": {
+    "sid": "S02",
+    "client": "120",
+    "description": "BearingPoint demo S/4HANA 2023 (S4CORE 108, SAP_UI 758)",
+    "flpUrl": "https://bedusapp01.dev.bearingpoint.com:4430/sap/bc/ui5_ui5/ui2/ushell/shells/abap/FioriLaunchpad.html#Shell-home",
+    "adtMcpServerPrefix": "mario-andreschak-mcp-abap-adt-s02_"
+  },
+  "testUser": {
+    "id": "Z_VOT_BM_T1",
+    "$comment": "SAP user IDs are max 12 chars: approved exception to the Z_VOT_BEMIND prefix."
+  },
+  "naming": {
+    "prefix": "Z_VOT_BEMIND",
+    "role": "Z_VOT_BEMIND_<PROFILE_KEY>_<PERIMETER>",
+    "roleAllSuffix": "ALL",
+    "space": "Z_VOT_BEMIND_SP_<PROFILE_KEY>",
+    "page": "Z_VOT_BEMIND_PG_<PROFILE_KEY>_<AREA>",
+    "catalog": "Z_VOT_BEMIND_TC_<PROFILE_KEY>",
+    "abapClass": "Z_VOT_BEMIND_ROLE_BUILDER",
+    "maxLength": { "role": 30, "space": 35, "page": 35, "catalog": 35, "user": 12 }
+  },
+  "transport": {
+    "superPackage": "Z_BEMIND",
+    "package": "Z_BM_ROLESAUTHORS",
+    "transportLayer": "ZV02",
+    "targetSystem": "V02",
+    "softwareComponent": "HOME"
+  },
+  "accessTypes": {
+    "FULL (Create/Update/Delete)": ["01", "02", "03", "06"],
+    "Update Only": ["02", "03"],
+    "Display Only": ["03"]
+  },
+  "github": {
+    "owner": "VladOtelBE",
+    "repo": "be-sap-authorisation-builder",
+    "private": true
+  }
+}

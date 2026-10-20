@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
+  "permission": {
+    "skill": { "*": "allow" },
+    "mario-andreschak-mcp-abap-adt-s02_createObject": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_setObjectSource": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_deleteObject": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_activateObjects": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_activateByName": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_createTransport": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_runClass": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_transportRelease": "ask",
+    "mario-andreschak-mcp-abap-adt-s02_transportDelete": "ask"
+  }
+}
