@@ -42,6 +42,20 @@ For each tile in `design.json` (space → page → section → tile order):
 ```
 Then `node scripts/build-test-report.mjs output/<KEY>/<KEY>_test-results.json`.
 
+## Proven technique (S02/120, 2026-10-21) – script `scripts/flp/test-tile.js`
+- Open a page directly: `#Launchpad-openFLPPage?spaceId=<SPACE>&pageId=<PAGE>`; go to `#Shell-home` between tiles.
+- Tile titles contain soft hyphens → match with regex `/Main.*tain.*Arti.*cle/`.
+- Max 2–3 tiles per `browser_run_code_unsafe` call (tool timeout ~60 s).
+- WebGUI apps run in an iframe whose URL contains `webgui`. **Only read VISIBLE message bars/dialogs** –
+  WebGUI keeps old messages in hidden ARIA live regions (caused false FAILs on MM41-43).
+- "Open" = tile visible + app loaded without error. "Navigation" = enter an existing object in display
+  (prepare read-only test data by SQL first: BP, info record, BOM...), press header/texts/Go, then Exit/Back.
+- Fiori list apps: press **Go**, check row count + OData status (403 = S_SERVICE missing). Big result sets may
+  stay busy long (F4111: 531 records) – check the $batch response before declaring a failure.
+- SU53 in a second tab fails in WebGUI ("current transaction must be terminated") – instead check the role
+  (AGR_1251) for the object named in the message.
+- Use data of the role perimeter (e.g. COM1 plants) to verify the org restriction (F5238 listed only PCEN/PPRD).
+
 ## Failure analysis hints
 | Symptom | Likely cause | Check |
 |---|---|---|
