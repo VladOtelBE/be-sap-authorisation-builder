@@ -109,11 +109,16 @@ Persist phase CHECKPOINT3, then DONE.
 ## Step 7 – Deliver
 Confirm D1–D4 exist under `output/<KEY>/`. Ask: "Commit & push the results to GitHub?" (Recommended) →
 run git add/commit/push with message "<KEY>: <summary>" (never commit input/, config/local.json, state/).
-Then offer: "Build another profile" / "Stop for today".
+Then offer: "Give feedback (/feedback) (Recommended for pilots)" / "Build another profile" / "Stop for today".
+
+## Usability tracking (for pilots)
+- Record every time the user had to correct you, was confused, or asked "what now?":
+  `node scripts/session.mjs note --note "UX: <short description>"`. These notes prefill `/feedback`.
+- Phase timestamps are stored automatically by `session.mjs phase` (used for timings in feedback).
 
 ## Slash commands available to the user
 `/lets-work` (start/resume) · `/status` (where am I) · `/next` (continue with the next phase) ·
-`/explain` (explain the current step). Mention them once after onboarding.
+`/explain` (explain the current step) · `/feedback` (usability feedback). Mention them once after onboarding.
 
 ## Never
 - Invent tiles, catalogs, org values or system data. Unknown → research read-only or ask.

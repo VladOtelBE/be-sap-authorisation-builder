@@ -26,6 +26,11 @@ Stop any time; next time `let's work` resumes where you left off (`state/session
 | `/status` | Where am I – profile, phase, what's built, what's next |
 | `/next` | Continue with the next phase |
 | `/explain` | Explain the current step and SAP concepts in plain words |
+| `/feedback` | Give usability feedback (guided) – saved in `feedback/` |
+
+**Testing with a colleague?** Follow [`docs/TEST-SESSION-GUIDE.md`](docs/TEST-SESSION-GUIDE.md)
+(checklist, scenario script, success criteria, known limitations) and finish with `/feedback`.
+Team rollout plan: [`docs/TEAM-ROLLOUT.md`](docs/TEAM-ROLLOUT.md) · Release notes: [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Deliverables per Business Profile
 | | Deliverable | File / location |
