@@ -64,5 +64,15 @@ Workaround (approved): finish in PFCG dialog via browser:
 Notes: `PRGN_RFC_CREATE_DERIVATION` returns `derivation_ok = 'Y'`. Org values are in AGR_1252 (AGR_1251 holds `$VARBL`).
 Only use '*' for open fields when the user approved it (test roles); production roles need explicit values.
 
+### F3. Automatic authorization overrides (config `authOverrides`, user decision 2026-10-21)
+After generating the master role's authorizations and BEFORE generating the profile, apply every rule in
+`config/project.json → authOverrides.rules` whose trigger matches (e.g. tcode BP in the role):
+- `F_KNA1_GRP` (customer account group) and `F_LFA1_GRP` (supplier account group): ACTVT = ACTVT of the matrix
+  access type of the BP entry (FULL → 01,02,03,06), account group `*`.
+- Why: SU24 proposes only ACTVT F4 → "No authorization to display accounts from account group XXXX" in BP.
+In PFCG (dialog): Change Authorization Data → find the object (Ctrl+F, object name) → change ACTVT values
+(pencil icon on the field) → set account group → Save → Generate → Generate derived roles.
+List the overrides applied in the build log. Overrides are not "making things up": they are approved project rules.
+
 ### G. Verification
 `AGR_DEFINE`, `AGR_AGRS`, `AGR_1251` (ACTVT), `AGR_USERS` for user, `AGR_HIERT` (menu texts).

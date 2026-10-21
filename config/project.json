@@ -33,6 +33,14 @@
     "Update Only": ["02", "03"],
     "Display Only": ["03"]
   },
+  "authOverrides": {
+    "$comment": "Applied automatically by the Role Builder after authorization generation (user decision 2026-10-21). ACTVT comes from the matrix access type of the profile's BP entry. Reason: SU24 proposes F4 only for these objects -> BP display of customers/suppliers fails (MDM_HQ test T01).",
+    "rules": [
+      { "trigger": { "tcodeInRole": "BP" }, "object": "F_KNA1_GRP", "fields": { "ACTVT": "$ACCESS_TYPE_ACTVT", "KTOKD": ["*"] } },
+      { "trigger": { "tcodeInRole": "BP" }, "object": "F_LFA1_GRP", "fields": { "ACTVT": "$ACCESS_TYPE_ACTVT", "KTOKK": ["*"] } }
+    ],
+    "openFieldsTestRole": "*"
+  },
   "github": {
     "owner": "VladOtelBE",
     "repo": "be-sap-authorisation-builder",

@@ -39,6 +39,9 @@ Catalog status: **18 tiles / 18 target mappings** = all 18 matrix entries (verif
 | 26 | 2026-10-21 10:01 | Z_VOT_BM_T1 | Roles Z_VOT_BEMIND_MDM_HQ_COM1 + Z_FLP_USER (valid to 31.12.9999) | assign | SU01 | OK – AGR_USERS |
 | 27 | 2026-10-21 10:05 | Z_VOT_BEMIND_ROLE_BUILDER | Fixes: derivation_ok 'Y', sy-subrc capture, verification reads AGR_1252, header documents S#/318 limit | update + activate | ADT | OK – re-run: roles skipped, assignment re-applied, verification all green |
 
+| 28 | 2026-10-21 13:22 | Z_VOT_BEMIND_MDM_HQ_ALL | Auth override (test T01 fix, user approved; rule `authOverrides` in config): F_KNA1_GRP + F_LFA1_GRP ACTVT 01/02/03/06 (+F4 kept), KTOKD/KTOKK * | update + generate | PFCG (WebGUI, Find object → Change ACTVT) | OK – profile regenerated; old F4-only authorization marked deleted |
+| 29 | 2026-10-21 13:23 | Z_VOT_BEMIND_MDM_HQ_COM1 | Generate derived roles | adjust + generate | PFCG | OK – AGR_1251 verified for both objects |
+
 **Lesson:** never keep /UI2/FLPCM_CUST (WebGUI) and /UI2/FLPD_CUST open on the same catalog – the WebGUI session holds the page lock.
 
 ### Open points found while adding references (resolved, kept for history)

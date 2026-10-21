@@ -1,12 +1,12 @@
 # Test report – MDM_HQ
 
-Role(s): `Z_VOT_BEMIND_MDM_HQ_COM1 (+ Z_FLP_USER)` · User: `Z_VOT_BM_T1` · System: S02/120 · 2026-10-21T12:46:00Z → 2026-10-21T13:06:00Z
+Role(s): `Z_VOT_BEMIND_MDM_HQ_COM1 (+ Z_FLP_USER)` · User: `Z_VOT_BM_T1` · System: S02/120 · 2026-10-21T12:46:00Z → 2026-10-21T13:31:00Z
 
-**18 tiles – 17 PASS / 1 PARTIAL / 0 FAIL**
+**18 tiles – 18 PASS / 0 PARTIAL / 0 FAIL**
 
 | Page | Tile | ID | Type | Opens | Nav | Status | Error / fix |
 |---|---|---|---|---|---|---|---|
-| Business Partners | Maintain Business Partner | BP | WEBGUI | PASS | 0/1 | PARTIAL | BP B001 is also a customer (KNA1-KTOKD 0120). Role has F_KNA1_GRP ACTVT = F4 only (SU24 default), no 03/01/02. → Maintain F_KNA1_GRP (and F_LFA1_GRP, same pattern) in Z_VOT_BEMIND_MDM_HQ_ALL with ACTVT 01,02,03,06 (FULL per matrix), KTOKD/KTOKK *; regenerate + generate derived roles. |
+| Business Partners | Maintain Business Partner | BP | WEBGUI | PASS | 3/4 | PASS | FIXED 13:22: F_KNA1_GRP + F_LFA1_GRP ACTVT 01/02/03/06, KTOKD/KTOKK * in _ALL, derived regenerated. Now an automatic rule (config authOverrides). |
 | Articles & Purchasing Info Records | Create Article | MM41 | WEBGUI | PASS | - | PASS |  |
 | Articles & Purchasing Info Records | Maintain Article | MM42 | WEBGUI | PASS | - | PASS |  |
 | Articles & Purchasing Info Records | Display Article | MM43 | WEBGUI | PASS | - | PASS |  |
