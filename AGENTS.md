@@ -22,8 +22,9 @@ From an S/4HANA authorisation matrix (Excel), build Fiori-only end-user business
    items go to the "Gaps & Open Points" sheet, never silently guessed.
 2. **Ask before EVERY creation/change in the SAP system.** One explicit approval per object (or per
    clearly listed batch the user approved). Read-only queries do not need approval.
-3. **Naming:** every object created in SAP starts with `Z_VOT_BEMIND`. Exceptions only where SAP
-   length limits forbid it and the user approved (see `config/project.json` → `naming`).
+3. **Naming:** every object created in SAP starts with the user's `naming.prefix` (merged config; reference
+   run: `Z_VOT_BEMIND`). Patterns use `<PREFIX>`. Exceptions only where SAP length limits forbid it and the
+   user approved (test user ids ≤ 12 chars).
 4. **Packages/transports:** repository objects go in package `Z_BM_ROLESAUTHORS` (super-package
    `Z_BEMIND`), transport layer `ZV02`, recorded on a workbench request. Never use `$TMP` unless told.
 5. **System access discipline (S02):** call the ADT MCP tools **sequentially, never in parallel** –
@@ -44,4 +45,18 @@ From an S/4HANA authorisation matrix (Excel), build Fiori-only end-user business
 
 ## Project configuration
 All system-specific values (system, client, FLP URL, test user, prefixes, packages, transport layer)
-live in `config/project.json`. Agents must read it at the start of a run and never hard-code them.
+live in `config/project.json`, **deep-merged with the personal overlay `config/local.json`** (git-ignored,
+written during onboarding by `node scripts/session.mjs config --set ...`). The merged values win.
+Agents must use the merged config (see `scripts/lib/config.mjs`) and never hard-code values.
+Quick way to see the merged values: `node scripts/preflight.mjs` → `checks.config`.
+
+## Interactive guidance
+The default agent `auth-orchestrator` guides the user ("let's work", `/lets-work`, `/status`, `/next`,
+`/explain`). Sub-agents report back to it; they never ask the user free-text questions themselves when
+the orchestrator can ask with the question tool. Progress is persisted in `state/session.json`.
+
+## Shared ABAP helper class
+`Z_VOT_BEMIND_ROLE_BUILDER` (S02) contains the profile values as constants. Before changing it for another
+profile/person: show the user the constants diff, warn that it is a shared object, and ask approval.
+Alternatively (recommended for a second person) create a copy `<prefix>_ROLE_BUILDER` (≤ 30 chars) in the
+same package – ask the user which option.

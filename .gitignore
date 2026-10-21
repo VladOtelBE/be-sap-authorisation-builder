@@ -7,6 +7,12 @@ input/*
 # Local secrets / env
 .env
 *.local.json
+# Personal settings + guided-session state (per person, never shared)
+config/local.json
+state/
+# Browser snapshots written by the Playwright tool
+playwright/
+*.yml
 # Browser artefacts
 .playwright-mcp/
 *.log

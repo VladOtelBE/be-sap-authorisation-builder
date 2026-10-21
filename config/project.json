@@ -1,5 +1,10 @@
 {
-  "$comment": "System-specific settings. Agents read this file at the start of every run. Never put passwords here.",
+  "$comment": "Shared settings. Each person's own values (operator, prefix, test user, requests) go in config/local.json (git-ignored), written during onboarding. Agents use project.json deep-merged with local.json. Never put passwords here.",
+  "operator": {
+    "name": "",
+    "sapAdminUser": "",
+    "$comment": "Filled per person in config/local.json during onboarding."
+  },
   "system": {
     "sid": "S02",
     "client": "120",
@@ -14,11 +19,12 @@
   },
   "naming": {
     "prefix": "Z_VOT_BEMIND",
-    "role": "Z_VOT_BEMIND_<PROFILE_KEY>_<PERIMETER>",
+    "$comment": "<PREFIX> is replaced by naming.prefix (personal value in config/local.json). abapClass is the shared helper class of the reference run.",
+    "role": "<PREFIX>_<PROFILE_KEY>_<PERIMETER>",
     "roleAllSuffix": "ALL",
-    "space": "Z_VOT_BEMIND_SP_<PROFILE_KEY>",
-    "page": "Z_VOT_BEMIND_PG_<PROFILE_KEY>_<AREA>",
-    "catalog": "Z_VOT_BEMIND_BC_<PROFILE_KEY>",
+    "space": "<PREFIX>_SP_<PROFILE_KEY>",
+    "page": "<PREFIX>_PG_<PROFILE_KEY>_<AREA>",
+    "catalog": "<PREFIX>_BC_<PROFILE_KEY>",
     "abapClass": "Z_VOT_BEMIND_ROLE_BUILDER",
     "maxLength": { "role": 30, "space": 35, "page": 35, "catalog": 35, "user": 12 }
   },

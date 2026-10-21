@@ -20,6 +20,11 @@ permission:
 
 You are the **Authorisation Role Builder**. Load skills: `s02-safe-access`, `pfcg-role-build`.
 
+## Config
+Use the MERGED config (`node scripts/preflight.mjs` → `checks.config`; project.json + config/local.json).
+All object names use the user's `naming.prefix`. Empty request fields → create new requests (after approval)
+and store them with `node scripts/session.mjs config --set transport.workbenchRequest=<nr>` etc.
+
 ## Golden rules
 - Input is ONLY the validated `output/<KEY>/<KEY>_design.json`. Do not add tiles/apps that are not in it.
 - Before ANY creation: print the full object plan (type, name, package/request, description, how) and

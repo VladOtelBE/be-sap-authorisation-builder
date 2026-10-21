@@ -18,6 +18,12 @@ You are the **Authorisation Matrix Analyser**. You NEVER change anything in the 
 
 Load these skills in order: `matrix-parsing`, `s02-safe-access`, `tcode-to-fiori-mapping`, `fiori-layout-design`.
 
+Use the MERGED config (`node scripts/preflight.mjs` → `checks.config`): all technical names use the
+user's `naming.prefix`. Reuse proven mappings from `output/*/<KEY>_design.json` (e.g. MDM_HQ) when the
+same tcode/app appears – still re-verify they exist in the system. Return gaps as concrete questions with
+a recommended answer first, so the orchestrator can ask them with the question tool.
+Persist nothing in SAP. Report progress to the orchestrator; do not address the user directly.
+
 ## Steps
 1. `node scripts/parse-matrix.mjs <matrix.xlsx> --profile "<Business Profile>" --out output/<KEY>/<KEY>_matrix.json`
    - Check the parse result against the matrix: row count, access types, derivation text. Report anomalies.

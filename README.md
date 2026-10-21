@@ -6,6 +6,27 @@ Agents + skills (BeMind / OpenCode format) that turn an **S/4HANA authorisation 
 Status: **v1 – proven end-to-end** on S02 / client 120 with Business Profile *MDM Central - HQ Level*
 (18 tiles, 18/18 PASS). See [`output/MDM_HQ/`](output/MDM_HQ/) for the reference run.
 
+## Quickstart (3 steps)
+```powershell
+git clone https://github.com/VladOtelBE/be-sap-authorisation-builder.git   # or: git pull
+cd be-sap-authorisation-builder
+```
+1. Copy the authorisation matrix `.xlsx` into `input/` (or let the guide tell you when).
+2. Open BeMind in this folder (the **auth-orchestrator** guide is the default agent).
+3. Type **`let's work`** (or `/lets-work`).
+
+The guide then checks your setup (Node, dependencies, SAP connection, matrix), onboards you once
+(your name, personal SAP prefix, test user – saved in the git-ignored `config/local.json`), lets you pick a
+Business Profile and walks you through **Analyse → Build → Test** with a question/approval at every step.
+Stop any time; next time `let's work` resumes where you left off (`state/session.json`).
+
+| Command | What it does |
+|---|---|
+| `/lets-work` | Start or resume the guided session |
+| `/status` | Where am I – profile, phase, what's built, what's next |
+| `/next` | Continue with the next phase |
+| `/explain` | Explain the current step and SAP concepts in plain words |
+
 ## Deliverables per Business Profile
 | | Deliverable | File / location |
 |---|---|---|
@@ -43,22 +64,17 @@ Status: **v1 – proven end-to-end** on S02 / client 120 with Business Profile *
 - SAP: an **admin user** (PFCG, SU01, SE21, FLP admin apps, ADT) for building; the **test user** for testing.
   Both log in **manually in the browser** – the agents never type or store passwords.
 
-## Setup
+## Manual setup (the guide does this for you)
 ```powershell
-git clone https://github.com/VladOtelBE/be-sap-authorisation-builder.git
-cd be-sap-authorisation-builder
-npm.cmd install            # npm.cmd avoids the PowerShell execution-policy block
+npm.cmd install                       # npm.cmd avoids the PowerShell execution-policy block
+node scripts/preflight.mjs            # setup check as JSON
+node scripts/session.mjs config --set naming.prefix=Z_ABC_BEMIND --set testUser.id=Z_ABC_BM_T1
 ```
-1. Copy the authorisation matrix into `input/` (git-ignored – client data).
-2. Review `config/project.json`: system/client, FLP URL, test user, naming prefix, packages, requests,
-   `authOverrides`. **Change `naming.prefix` / test user if you build your own objects** (see below).
-3. Check: `node scripts/parse-matrix.mjs input/<matrix>.xlsx --list` lists all Business Profiles.
-
-## Usage
-Start BeMind in the repo folder, select the **auth-orchestrator** agent and prompt e.g.:
+Shared settings: `config/project.json`. Personal settings: `config/local.json` (git-ignored, overrides shared).
+You can also skip the menu and ask directly, e.g.:
 > Build business profile "Pricing Manager" from the matrix in input/, with a derived role for company code COM1.
 
-The orchestrator stops at 3 checkpoints:
+The guide stops at 3 checkpoints:
 1. **Layout** (D1 Excel + gaps/questions) → you validate.
 2. **Build plan** (object list) → you approve, log in as admin in the browser when asked → build.
 3. **Test** → you log in as the test user → test report (D4) + fix proposals.
@@ -77,9 +93,8 @@ Browser snippets (run by the agents through Playwright): `scripts/flp/add-catalo
 - **Objects of the reference run already exist in S02/120** (owner OTEL): roles `Z_VOT_BEMIND_MDM_HQ_*`,
   catalog `Z_VOT_BEMIND_BC_MDM_HQ`, space/pages `Z_VOT_BEMIND_SP/PG_MDM_HQ*`, class `Z_VOT_BEMIND_ROLE_BUILDER`,
   user `Z_VOT_BM_T1`. The agents never overwrite existing objects – re-running MDM_HQ will stop and ask.
-- To test the full flow independently, either build **another Business Profile**, or set your own
-  `naming.prefix` (e.g. `Z_<INITIALS>_BEMIND`), test user and requests in `config/project.json`.
-  Your own requests: leave `transport.workbenchRequest` / `customizingRequest` empty → the agent asks.
+- The guide's onboarding gives each person their **own prefix and test user** (in `config/local.json`),
+  so nobody overwrites the reference objects. Your own transport requests are created when you build.
 - Known S02 limits (documented in `pfcg-role-build` skill): background authorisation generation is refused
   (S#/318, SU25 status for release 758 missing – **do not run SU25**) → authorisations are finished in PFCG
   via the browser; ADT cannot create packages → SE21.
