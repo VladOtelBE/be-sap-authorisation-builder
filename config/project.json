@@ -9,7 +9,8 @@
   },
   "testUser": {
     "id": "Z_VOT_BM_T1",
-    "$comment": "SAP user IDs are max 12 chars: approved exception to the Z_VOT_BEMIND prefix."
+    "flpRole": "Z_FLP_USER",
+    "$comment": "SAP user IDs are max 12 chars: approved exception to the Z_VOT_BEMIND prefix. flpRole = existing FLP runtime role, assigned together with the derived role."
   },
   "naming": {
     "prefix": "Z_VOT_BEMIND",
@@ -26,7 +27,10 @@
     "package": "Z_BM_ROLESAUTHORS",
     "transportLayer": "ZV02",
     "targetSystem": "V02",
-    "softwareComponent": "HOME"
+    "softwareComponent": "HOME",
+    "workbenchRequest": "S02K901596",
+    "customizingRequest": "S02K901580",
+    "$comment": "Requests used for MDM_HQ (both OTEL, open). Ask the user before reusing them for another profile or another person."
   },
   "accessTypes": {
     "FULL (Create/Update/Delete)": ["01", "02", "03", "06"],

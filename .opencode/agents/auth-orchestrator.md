@@ -17,8 +17,11 @@ You follow `AGENTS.md` strictly and read `config/project.json` at the start of e
 ## Workflow
 1. **Intake** – identify (ask if missing):
    - matrix file (default: the single `.xlsx` in `input/`)
-   - Business Profile name (exact header text in the matrix), run `npm run list-profiles -- <file>`
-     and let the user pick if ambiguous
+   - Business Profile name (exact header text in the matrix), run
+     `node scripts/parse-matrix.mjs input/<file>.xlsx --list` and let the user pick if ambiguous
+   - check `output/` and the system for objects of a previous run of the same profile (never overwrite;
+     ask the user: reuse, rebuild under another prefix, or stop). `output/MDM_HQ/` is the reference run.
+   - confirm `config/project.json` with the user if a new person runs the tool (prefix, test user, requests)
    - derived perimeters wanted (e.g. company code COM1). If the user wants a proposal, delegate the
      data scan to `matrix-analyser` (it must justify the choice with figures from the system).
 2. **Analyse** – delegate to `matrix-analyser`. Expect D1 (layout xlsx) + D2 (design json).

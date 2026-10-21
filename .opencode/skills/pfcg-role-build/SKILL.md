@@ -12,21 +12,25 @@ transport layer, packages, naming, test user, access types → ACTVT.
 3. Create one object at a time, verify it, log it in `output/<KEY>/<KEY>_build-log.md`.
 
 ## Step details
-### A. Transport + packages
-- `createTransport` (workbench) with text `BeMind - <KEY> role build`.
-- Super-package `Z_BEMIND` (structure package, transport layer from config, software component HOME),
-  sub-package `Z_BM_ROLESAUTHORS` (super-package = `Z_BEMIND`).
+### A. Transport + packages (reuse if existing – see config.transport)
+- Workbench request (ADT `createTransport` works) for repository objects; client-specific FLP content and
+  roles go on a **customizing** request (`config.transport.customizingRequest`). Note: the Launchpad
+  Designer does NOT prompt for a request when a catalog is created; it records on the user's open
+  customizing task → tell the user.
+- Packages: ADT `createObject` for DEVC fails ("incomplete data") → create in SE21 (WebGUI): super-package
+  `Z_BEMIND` (structure package, software component HOME, layer from config), sub-package `Z_BM_ROLESAUTHORS`.
 - Verify: `SELECT DEVCLASS, PARENTCL, PDEVCLASS FROM TDEVC WHERE DEVCLASS IN ('Z_BEMIND','Z_BM_ROLESAUTHORS')`.
 
 ### B. Helper class `Z_VOT_BEMIND_ROLE_BUILDER` (source: `abap/`)
-Runs via `runClass` (IF_OO_ADT_CLASSRUN). Uses standard function modules found in S02:
-`PRGN_RFC_CREATE_ACTIVITY_GROUP` (create role), `PRGN_RFC_CHANGE_TEXTS`, `PRGN_RFC_ADD_AGRS_TO_COLL_AGR`,
-`BAPI_USER_ACTGROUPS_ASSIGN` (assign roles), `BAPI_USER_CREATE1` (test user).
-Menu entries for catalogs / spaces and derivation use PFCG APIs – verify each API exists in the
-system (`SELECT FUNCNAME FROM TFDIR WHERE FUNCNAME = '...'`) before relying on it; if not available,
-fall back to the browser (PFCG in WebGUI) and tell the user.
-The class must be parameterised by a design JSON passed as constant/input – no business data hard-coded
-beyond what the user approved.
+Runs via `runClass` (IF_OO_ADT_CLASSRUN). Idempotent: existing roles are skipped, never overwritten.
+Uses SAP standard APIs verified in S02: `PRGN_RFC_CREATE_ACTIVITY_GROUP`, `PRGN_STRU_CHECK_CATALOG_NODES`,
+`PRGN_STRU_CHECK_APPS_OF_NODES`, `PRGN_SAVE_ROLE_MENU` (same sequence as `CL_PFCG_FIORI_HELPER`),
+`PRGN_AUTO_GENERATE_PROFILE_NEW`, `PRGN_1252_SAVE_ORG_LEVELS`, `PRGN_RFC_CREATE_DERIVATION`,
+`BAPI_USER_ACTGROUPS_ASSIGN` (replaces ALL roles of the user!).
+Per new profile: change the constants (request, roles, texts, catalog, space, user, FLP role) and
+`get_derived_org_levels` from design.json, show the diff to the user, then syntax check + activate.
+Menu node format (like SAP_BR_* roles): catalog = AGR_HIER OT/CAT_PROVIDER + AGR_BUFFI URL
+`X-SAP-UI2-CATALOGPAGE:<catalog>?AUTH_DEFAULTS=X&DEST_FES=`; space = OT/SPACE_PROVIDER + URL `<space id>`.
 
 ### C. Role content (master `_ALL`)
 - Menu: business catalogs (or custom catalog) + space `Z_VOT_BEMIND_SP_<KEY>`.
@@ -39,15 +43,21 @@ beyond what the user approved.
 - Org levels: `BUKRS`, `WERKS`, `EKORG`, `VKORG` (+ `VTWEG`, `SPART` = `*` unless specified) from design.
 - Generate profile, verify.
 
-### E. Spaces & pages
-Created in the launchpad apps "Manage Launchpad Spaces" / "Manage Launchpad Pages" (browser) or
-transaction `/UI2/FLPCM_CONF` – with the transport and package from config. Then add the space to
-the master role menu (Launchpad Space entry).
+### E. Catalog, pages & space (client-specific, browser, admin user)
+- Catalog: `/UI2/FLPD_CUST` (Designer) → create catalog `Z_VOT_BEMIND_BC_<KEY>`.
+- Tile references: `/UI2/FLPCM_CUST` (Content Manager) → select catalog → "Add Tiles/TMs to Selected Catalog"
+  → search (tcode or **tile title** – tcode search is truncated at 40 rows!) → pick row with Tile+TM from the
+  design's technical catalog → "Add Tile/TM Reference". One tile per call (dialog closes after each add).
+- **Close the Content Manager before using the Designer** on the same catalog (WebGUI session holds the lock).
+- Custom TM/tile (only if approved): Designer → Target Mappings → Create (Application Type Transaction),
+  then Tiles → "+" → App Launcher – Static with same semantic object/action.
+- Pages: `#FLPPage-manage` (script `scripts/flp/build-page.js`); space: `#FLPSpace-manage` (untick
+  "Also create a page", enter the customizing request, add the pages in order, Save).
+- The space is added to the role menu by the helper class (OT / SPACE_PROVIDER).
 
 ### F. Test user
-`Z_VOT_BM_T1` (config). Create if missing (initial password from the user at runtime, never stored),
-user type Dialog, assign the derived (or _ALL) role(s) + required technical FLP role if needed
-(check: `SAP_UI2_USER_700` or the project's technical role – ask user).
+`config.testUser.id`. Create in SU01 if missing (user type Dialog, initial password typed at runtime, never
+stored). Assign the derived role(s) + `config.testUser.flpRole` (Z_FLP_USER in S02/120: /UI2/FLP + FLP services).
 
 ### F2. Known system limit: S#/318 "First call Transaction SU25" (verified S02/120, 2026-10-21)
 `PRGN_AUTO_GENERATE_PROFILE_NEW` (rebuild modes X/M/F) calls `PRGN_CHECK_PROFGEN_TABLES`, which only checks
