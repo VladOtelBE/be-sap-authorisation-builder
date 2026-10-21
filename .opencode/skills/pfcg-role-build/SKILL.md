@@ -49,5 +49,20 @@ the master role menu (Launchpad Space entry).
 user type Dialog, assign the derived (or _ALL) role(s) + required technical FLP role if needed
 (check: `SAP_UI2_USER_700` or the project's technical role – ask user).
 
+### F2. Known system limit: S#/318 "First call Transaction SU25" (verified S02/120, 2026-10-21)
+`PRGN_AUTO_GENERATE_PROFILE_NEW` (rebuild modes X/M/F) calls `PRGN_CHECK_PROFGEN_TABLES`, which only checks
+`PRGN_STAT` for STAT_GRP 001 / STEP_NR 1 or 2 **for the current release** (`sy-saprl`). If missing, background
+auth generation is refused even though USOBT_C/USOBX_C are filled. **Never run SU25 without system-owner approval.**
+Workaround (approved): finish in PFCG dialog via browser:
+1. PFCG → role `_ALL` → Authorizations → "Change authorization data" (SU25 info popup → Enter).
+2. Org-level popup → "Full authorization" → Save.
+3. For each object class with status "Mssng values": **double-click the status icon** (svg inside
+   `a[title="Mssng values"]`) → "Assign Full Authorization for Subtree" → Execute. Batch ≤ 5 per call (timeouts).
+4. Save (Ctrl+S) → toolbar button `[title="Generate (Shift+F5)"]` → accept profile name → Execute.
+5. Toolbar `[title="Generate derived roles (Ctrl+Shift+F4)"]` → Continue → derived roles adjusted + generated.
+6. Assign roles in SU01 (Roles tab: type into cells `grid#C102#<row>,2#if`), Ctrl+S.
+Notes: `PRGN_RFC_CREATE_DERIVATION` returns `derivation_ok = 'Y'`. Org values are in AGR_1252 (AGR_1251 holds `$VARBL`).
+Only use '*' for open fields when the user approved it (test roles); production roles need explicit values.
+
 ### G. Verification
 `AGR_DEFINE`, `AGR_AGRS`, `AGR_1251` (ACTVT), `AGR_USERS` for user, `AGR_HIERT` (menu texts).

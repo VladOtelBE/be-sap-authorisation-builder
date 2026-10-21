@@ -17,7 +17,7 @@
     "roleAllSuffix": "ALL",
     "space": "Z_VOT_BEMIND_SP_<PROFILE_KEY>",
     "page": "Z_VOT_BEMIND_PG_<PROFILE_KEY>_<AREA>",
-    "catalog": "Z_VOT_BEMIND_TC_<PROFILE_KEY>",
+    "catalog": "Z_VOT_BEMIND_BC_<PROFILE_KEY>",
     "abapClass": "Z_VOT_BEMIND_ROLE_BUILDER",
     "maxLength": { "role": 30, "space": 35, "page": 35, "catalog": 35, "user": 12 }
   },
